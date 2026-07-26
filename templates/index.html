@@ -7,5 +7,10 @@
 </head>
 <body>
     <h1>Hello, World!</h1>
+    <form action="/notes" method="post">
+        <input type="text" name="title" placeholder="Note Title" required>
+        <textarea name="content" placeholder="Note Content" required></textarea>
+        <button type="submit">Create Note</button>
+    </form>
 </body>
 </html>
