@@ -1,10 +1,1 @@
-from flask import Flask, render_template
-
-app = Flask(__name__)
-
-@app.route('/')
-def home():
-    return render_template('index.html')
-
-if __name__ == '__main__':
-    app.run(debug=True)
+from flask import Flask, render_template\nimport sqlite3\n\napp = Flask(__name__)\n\ndef init_db():\n    conn = sqlite3.connect('notes.db')\n    c = conn.cursor()\n    c.execute('''CREATE TABLE IF NOT EXISTS notes (id INTEGER PRIMARY KEY AUTOINCREMENT, title TEXT, content TEXT, created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP, updated_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP)''')\n    conn.commit()\n    conn.close()\n\n@app.route('/')\ndef home():\n    return render_template('index.html')\n\nif __name__ == '__main__':\n    init_db()\n    app.run(debug=True)
