@@ -12,7 +12,12 @@ def init_db():
 
 @app.route('/')
 def home():
-    return render_template('index.html')
+    conn = sqlite3.connect('notes.db')
+    c = conn.cursor()
+    c.execute('SELECT title, content, created_at FROM notes')
+    notes = c.fetchall()
+    conn.close()
+    return render_template('index.html', notes=notes)
 
 @app.route('/notes', methods=['POST'])
 def create_note():
@@ -24,7 +29,3 @@ def create_note():
     conn.commit()
     conn.close()
     return redirect('/')
-
-if __name__ == '__main__':
-    init_db()
-    app.run(debug=True)

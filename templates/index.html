@@ -12,5 +12,14 @@
         <textarea name="content" placeholder="Note Content" required></textarea>
         <button type="submit">Create Note</button>
     </form>
+    <div class="notes">
+        {% for note in notes %}
+            <div class="note-card">
+                <h2>{{ note[0] }}</h2>
+                <p>{{ note[1][:50] }}...</p>
+                <small>{{ note[2] }}</small>
+            </div>
+        {% endfor %}
+    </div>
 </body>
 </html>
